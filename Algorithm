@@ -1,0 +1,57 @@
+package com.example.epco
+
+import java.util.*
+
+fun main() {
+    var list = LinkedList<Int>()
+    //case: recommend First Chord => yes
+    println("Bar 1, Select Chord (Recommend " + 1 + "): ")
+    var y = readLine()!!.toInt()
+    lateinit var a: String
+    list.add(1)
+    print("\n")
+    for(i:Int in 2..8) {
+        if (i == 3 || i == 6) {
+            println("Bar $i, Select Chord: ")
+            print("-> Next Bar's Chord(Bar"+(i+1)+") should come Fifth Chord (Now recommend Chord is "+ Rule(y) + ")\n")
+            println(" // comment recommend Chord of next Bar")
+            y = readLine()!!.toInt()
+            //if y in Rule(y)
+            list.add(y)
+            continue
+        }
+        if(i == 5 || i == 8){
+            //case: recommend First Chord => yes
+            println("Bar $i, Should put First Chord (Chord1)"+"(Y/N): ")
+            a = readLine()!!.toString()
+            if (a == "Y") {
+                y = 1
+                list.add(1)
+            }
+            else{
+                println("Bar $i, Select another Chord: ")
+                print("-> Recommend "+ Rule(y) + "\n")
+                y = readLine()!!.toInt()
+                list.add(y)
+            }
+            continue
+        }
+        println("Bar $i, Select Chord: ")
+        print("-> Recommend "+ Rule(y) + "\n")
+        y = readLine()!!.toInt()
+        print("\n")
+        list.add(y)
+    }
+    println(list)
+}
+fun Rule(x:Int?):String {
+    when(x) {
+        1 -> return "1~7"
+        2 -> return "4,5"
+        3 -> return "2"
+        4 -> return "2,5"
+        5 -> return "1,2"
+        6 -> return "2,4,5"
+        else -> return "Please retry"
+    }
+}
